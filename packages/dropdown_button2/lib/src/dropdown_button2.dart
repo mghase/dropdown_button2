@@ -1080,8 +1080,8 @@ class DropdownButtonFormField2<T> extends FormField<T> {
            // An unFocusable Focus widget so that this widget can detect if its
            // descendants have focus or not.
            return Focus(
-             _canRequestFocus: false,
-             _skipTraversal: true,
+             canRequestFocus: false,
+             skipTraversal: true,
              child: DropdownButtonHideUnderline(
                child: DropdownButton2<T>._formField(
                  items: items ?? [],

@@ -267,7 +267,7 @@ class _DropdownMenuPainter extends CustomPainter {
              borderRadius: const BorderRadius.all(Radius.circular(2.0)),
              boxShadow: kElevationToShadow[elevation],
            ).createBoxPainter(),
-       super(_repaint: resize);
+       super(repaint: resize);
 
   final Color? color;
   final int? elevation;

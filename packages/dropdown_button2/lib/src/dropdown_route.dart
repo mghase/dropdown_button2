@@ -383,7 +383,7 @@ class _DropdownRoutePageState<T> extends State<_DropdownRoutePage<T>> {
       widget.mediaQueryPadding,
       widget.selectedIndex,
     );
-    _scrollController = ScrollController(_initialScrollOffset: menuLimits.scrollOffset);
+    _scrollController = ScrollController(initialScrollOffset: menuLimits.scrollOffset);
   }
 
   @override
