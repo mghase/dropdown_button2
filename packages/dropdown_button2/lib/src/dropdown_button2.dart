@@ -10,8 +10,8 @@ import 'dart:ui';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'seperated_sliver_child_builder_delegate.dart';
 
@@ -182,7 +182,7 @@ class DropdownButton2<T> extends StatefulWidget {
   /// If the [onChanged] callback is null or the list of items is null
   /// then the dropdown button will be disabled, i.e. its arrow will be
   /// displayed in grey and it will not respond to input.
-  final List<DropdownItem<T>>? items;
+  final List<DropdownItem<T>> items;
 
   final T? selectedValue;
 
@@ -597,7 +597,7 @@ class _DropdownButton2State<T> extends State<DropdownButton2<T>> with WidgetsBin
     });
   }
 
-  TextStyle? get _textStyle => widget.style ?? Theme.of(context).textTheme.titleMedium;
+  TextStyle get _textStyle => widget.style ?? Theme.of(context).textTheme.titleMedium!;
 
   Rect _getButtonRect() {
     // InputDecorator is a parent of _buttonRect (to avoid the dropdown menu opening under the button's error/helper),
@@ -647,7 +647,7 @@ class _DropdownButton2State<T> extends State<DropdownButton2<T>> with WidgetsBin
     );
     final TextDirection? textDirection = Directionality.maybeOf(context);
 
-    final items = widget.items!;
+    final items = widget.items;
     final separator = widget.dropdownSeparator;
     _buttonRect.value = _getButtonRect();
 
@@ -667,7 +667,7 @@ class _DropdownButton2State<T> extends State<DropdownButton2<T>> with WidgetsBin
       isNoSelectedItem: _selectedIndex == null,
       onChanged: widget.onChanged,
       capturedThemes: InheritedTheme.capture(from: context, to: navigator.context),
-      style: _textStyle!,
+      style: _textStyle,
       barrierDismissible: widget.barrierDismissible,
       barrierColor: widget.barrierColor,
       barrierLabel:
@@ -1080,11 +1080,11 @@ class DropdownButtonFormField2<T> extends FormField<T> {
            // An unFocusable Focus widget so that this widget can detect if its
            // descendants have focus or not.
            return Focus(
-             canRequestFocus: false,
-             skipTraversal: true,
+             _canRequestFocus: false,
+             _skipTraversal: true,
              child: DropdownButtonHideUnderline(
                child: DropdownButton2<T>._formField(
-                 items: items,
+                 items: items ?? [],
                  selectedItemBuilder: selectedItemBuilder,
                  valueListenable: valueListenable,
                  multiValueListenable: multiValueListenable,

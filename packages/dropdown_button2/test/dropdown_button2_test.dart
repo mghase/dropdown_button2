@@ -1,8 +1,8 @@
 import 'dart:ui';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:material_ui/material_ui.dart';
 
 Finder findInputDecoratorBorderPainter() {
   return find.descendant(
@@ -51,10 +51,10 @@ void main() {
           ),
         );
 
-        final buttonFocusNode = tester.widget<Focus>(findDropdownButtonFocus).focusNode!;
+        final buttonFocusNode = tester.widget<Focus>(findDropdownButtonFocus).focusNode;
 
         expect(findDropdownMenu, findsNothing);
-        expect(buttonFocusNode.hasFocus, isFalse);
+        expect(buttonFocusNode?.hasFocus, isFalse);
 
         await tester.tap(findDropdownButton);
         await tester.pumpAndSettle();
@@ -63,7 +63,7 @@ void main() {
         final selectedMenuItemFocusNode = Focus.of(tester.element(findSelectedMenuItemText));
 
         expect(selectedMenuItemFocusNode.hasPrimaryFocus, isTrue);
-        expect(buttonFocusNode.hasFocus, isTrue);
+        expect(buttonFocusNode?.hasFocus, isTrue);
       });
 
       testWidgets('button should stay highlighted when menu closes', (WidgetTester tester) async {
@@ -90,19 +90,19 @@ void main() {
           ),
         );
 
-        final buttonFocusNode = tester.widget<Focus>(findDropdownButtonFocus).focusNode!;
+        final buttonFocusNode = tester.widget<Focus>(findDropdownButtonFocus).focusNode;
 
-        expect(buttonFocusNode.hasFocus, isFalse);
+        expect(buttonFocusNode?.hasFocus, isFalse);
 
         await tester.tap(findDropdownButton);
         await tester.pumpAndSettle();
 
-        expect(buttonFocusNode.hasFocus, isTrue);
+        expect(buttonFocusNode?.hasFocus, isTrue);
 
         await tester.tap(findSelectedMenuItemText);
         await tester.pumpAndSettle();
 
-        expect(buttonFocusNode.hasPrimaryFocus, isTrue);
+        expect(buttonFocusNode?.hasPrimaryFocus, isTrue);
       });
 
       testWidgets('inkwell should not go beyond border and cover error message when pressed', (
@@ -241,7 +241,7 @@ void main() {
           );
 
           await tester.pumpWidget(buildFormField());
-          final FocusNode internalNode = tester
+          final FocusNode? internalNode = tester
               .widget<Focus>(
                 find
                     .descendant(
@@ -250,14 +250,14 @@ void main() {
                     )
                     .first,
               )
-              .focusNode!;
+              .focusNode;
 
           // Replace internal FocusNode with external FocusNode.
           focusNode = FocusNode(debugLabel: 'DropdownButtonFormField2');
           await tester.pumpWidget(buildFormField());
 
           expect(
-            internalNode.dispose,
+            internalNode?.dispose,
             throwsA(
               isA<FlutterError>().having(
                 (FlutterError error) => error.message,

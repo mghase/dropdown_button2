@@ -24,8 +24,8 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
     required this.searchData,
     this.dropdownSeparator,
     this.animateDuration,
-  })  : barrierColor = barrierCoversButton ? barrierColor : null,
-        _altBarrierColor = barrierColor;
+  }) : barrierColor = barrierCoversButton ? barrierColor : null,
+       _altBarrierColor = barrierColor;
 
   final List<DropdownItem<T>> items;
   final ValueNotifier<Rect?> buttonRect;
@@ -106,8 +106,9 @@ class _DropdownRoute<T> extends PopupRoute<_DropdownRouteResult<T>> {
             final BoxConstraints actualConstraints = constraints.copyWith(
               maxHeight: constraints.maxHeight - viewInsets.bottom,
             );
-            final EdgeInsets mediaQueryPadding =
-                dropdownStyle.useSafeArea ? padding : EdgeInsets.zero;
+            final EdgeInsets mediaQueryPadding = dropdownStyle.useSafeArea
+                ? padding
+                : EdgeInsets.zero;
             return ValueListenableBuilder<Rect?>(
               valueListenable: buttonRect,
               builder: (BuildContext context, Rect? rect, _) {
@@ -382,7 +383,7 @@ class _DropdownRoutePageState<T> extends State<_DropdownRoutePage<T>> {
       widget.mediaQueryPadding,
       widget.selectedIndex,
     );
-    _scrollController = ScrollController(initialScrollOffset: menuLimits.scrollOffset);
+    _scrollController = ScrollController(_initialScrollOffset: menuLimits.scrollOffset);
   }
 
   @override
@@ -489,32 +490,32 @@ class _DropdownMenuRouteLayout<T> extends SingleChildLayoutDelegate {
     final Offset offset = route.dropdownStyle.offset;
     final double left = switch (route.dropdownStyle.direction) {
       DropdownDirection.textDirection => switch (textDirection!) {
-          TextDirection.rtl => clampDouble(
-              buttonRect.right - childSize.width + offset.dx,
-              0.0,
-              size.width - childSize.width,
-            ),
-          TextDirection.ltr => clampDouble(
-              buttonRect.left + offset.dx,
-              0.0,
-              size.width - childSize.width,
-            ),
-        },
-      DropdownDirection.right => clampDouble(
-          buttonRect.left + offset.dx,
-          0.0,
-          size.width - childSize.width,
-        ),
-      DropdownDirection.left => clampDouble(
+        TextDirection.rtl => clampDouble(
           buttonRect.right - childSize.width + offset.dx,
           0.0,
           size.width - childSize.width,
         ),
-      DropdownDirection.center => clampDouble(
-          (size.width - childSize.width) / 2 + offset.dx,
+        TextDirection.ltr => clampDouble(
+          buttonRect.left + offset.dx,
           0.0,
           size.width - childSize.width,
         ),
+      },
+      DropdownDirection.right => clampDouble(
+        buttonRect.left + offset.dx,
+        0.0,
+        size.width - childSize.width,
+      ),
+      DropdownDirection.left => clampDouble(
+        buttonRect.right - childSize.width + offset.dx,
+        0.0,
+        size.width - childSize.width,
+      ),
+      DropdownDirection.center => clampDouble(
+        (size.width - childSize.width) / 2 + offset.dx,
+        0.0,
+        size.width - childSize.width,
+      ),
     };
 
     return Offset(left, menuLimits.top);
